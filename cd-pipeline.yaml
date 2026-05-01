@@ -1,0 +1,97 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: cd-pipeline
+  namespace: sn-labs-haguilarfi
+spec:
+  params:
+    - name: repo-url
+      type: string
+      default: https://github.com/alonsoaf/ci-cd-final-project.git
+    - name: branch
+      type: string
+      default: main
+    - name: app-name
+      type: string
+      default: cicd-app
+    - name: build-image
+      type: string
+      default: image-registry.openshift-image-registry.svc:5000/sn-labs-haguilarfi/cicd-app:latest
+
+  workspaces:
+    - name: output
+
+  tasks:
+    - name: cleanup
+      taskRef:
+        kind: Task
+        name: cleanup
+      workspaces:
+        - name: source
+          workspace: output
+
+    - name: clone
+      runAfter:
+        - cleanup
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.branch)
+        - name: deleteExisting
+          value: "true"
+      workspaces:
+        - name: output
+          workspace: output
+
+    - name: lint
+      runAfter:
+        - clone
+      taskRef:
+        kind: Task
+        name: flake8
+      workspaces:
+        - name: source
+          workspace: output
+
+    - name: tests
+      runAfter:
+        - lint
+      taskRef:
+        kind: Task
+        name: nose
+      params:
+        - name: args
+          value: "-v --with-spec --spec-color --with-coverage --cover-package=app"
+      workspaces:
+        - name: source
+          workspace: output
+
+    - name: build
+      runAfter:
+        - tests
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      params:
+        - name: IMAGE
+          value: $(params.build-image)
+        - name: TLSVERIFY
+          value: "false"
+      workspaces:
+        - name: source
+          workspace: output
+
+    - name: deploy
+      runAfter:
+        - build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+      params:
+        - name: SCRIPT
+          value: |
+            oc create deployment $(params.app-name) --image=$(params.build-image) --dry-run=client -o yaml | oc apply -f -
