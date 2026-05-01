@@ -1,0 +1,40 @@
+completed	success	Add unit test step to CI workflow	CI workflow	main	push	25201368678	28s	12m
+completed	failure	COMMIT MESSAGE	.github/workflows/workflow.yml	main	push	25201083211	0s	24m
+completed	failure	COMMIT MESSAGE	.github/workflows/workflow.yml	main	push	25200994897	0s	28m
+completed	failure	Initial commit	.github/workflows/workflow.yml	main	push	25200001108	0s	1h
+
+✓ main CI workflow · 25201368678
+Triggered via push about 12 minutes ago
+
+JOBS
+✓ build in 25s (ID 73892942956)
+
+ANNOTATIONS
+! Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v3. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build: .github#2
+
+
+For more information about a job, try: gh run view --job=<job-id>
+View this run on GitHub: https://github.com/alonsoaf/ci-cd-final-project/actions/runs/25201368678
+
+✓ main CI workflow · 25201368678
+Triggered via push about 12 minutes ago
+
+JOBS
+✓ build in 25s (ID 73892942956)
+  ✓ Set up job
+  ✓ Initialize containers
+  ✓ Checkout
+  ✓ Install dependencies
+  ✓ Lint with flake8
+  ✓ Post Checkout
+  ✓ Stop containers
+  ✓ Complete job
+
+ANNOTATIONS
+! Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v3. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build: .github#2
+
+
+For more information about a job, try: gh run view --job=<job-id>
+View this run on GitHub: https://github.com/alonsoaf/ci-cd-final-project/actions/runs/25201368678
